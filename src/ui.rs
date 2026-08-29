@@ -16,11 +16,24 @@ pub fn print_analysis(items: &[CleanupItem]) {
                 format_size(bytes, BINARY)
             })
             .unwrap_or_else(|| "calculated during cleanup".to_owned());
-        let state = if item.available { "available" } else { "not installed / empty" };
-        println!("- {:<28} {:>12}  [{}; {}]", item.label, size, item.risk.marker(), state);
+        let state = if item.available {
+            "available"
+        } else {
+            "not installed / empty"
+        };
+        println!(
+            "- {:<28} {:>12}  [{}; {}]",
+            item.label,
+            size,
+            item.risk.marker(),
+            state
+        );
     }
 
-    println!("\nKnown reclaimable size: {}", format_size(known_total, BINARY));
+    println!(
+        "\nKnown reclaimable size: {}",
+        format_size(known_total, BINARY)
+    );
     println!("No files were deleted.");
 }
 
@@ -40,7 +53,13 @@ pub fn run_interactive(items: Vec<CleanupItem>) -> Result<()> {
                 .estimated_bytes
                 .map(|bytes| format_size(bytes, BINARY))
                 .unwrap_or_else(|| "size determined by tool".to_owned());
-            format!("{:<26} {:>12}  [{}] — {}", item.label, size, item.risk.marker(), item.description)
+            format!(
+                "{:<26} {:>12}  [{}] — {}",
+                item.label,
+                size,
+                item.risk.marker(),
+                item.description
+            )
         })
         .collect();
 
