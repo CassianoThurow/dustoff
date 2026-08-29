@@ -44,11 +44,17 @@ fn validate_user_path(path: &Path) -> Result<()> {
     let absolute_home = make_absolute(&home)?;
 
     if absolute == absolute_home || !absolute.starts_with(&absolute_home) {
-        bail!("refusing to clean path outside the user home: {}", path.display());
+        bail!(
+            "refusing to clean path outside the user home: {}",
+            path.display()
+        );
     }
 
     if absolute.components().count() <= absolute_home.components().count() + 1 {
-        bail!("refusing to clean a broad user directory: {}", path.display());
+        bail!(
+            "refusing to clean a broad user directory: {}",
+            path.display()
+        );
     }
 
     Ok(())
