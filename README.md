@@ -19,7 +19,36 @@ then performs the selected actions.
 Nothing is selected by default. Dustoff does not run as a background service and
 does not need root privileges for the current targets.
 
-## Run
+## Install
+
+Install the latest release for the current Linux architecture:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/CassianoThurow/dustoff/main/install.sh | bash
+```
+
+The installer downloads the release, verifies its SHA-256 checksum, and places
+the binary in `~/.local/bin/dustoff`. It does not require `sudo`.
+
+Then open the interactive flow from any terminal:
+
+```bash
+dustoff
+```
+
+Install a specific version:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/CassianoThurow/dustoff/main/install.sh | DUSTOFF_VERSION=v0.1.0 bash
+```
+
+Use a different installation directory:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/CassianoThurow/dustoff/main/install.sh | DUSTOFF_INSTALL_DIR="$HOME/bin" bash
+```
+
+## Build from source
 
 ```bash
 cargo run --release
@@ -31,12 +60,21 @@ Analyze without opening the selection flow:
 cargo run --release -- analyze
 ```
 
-Install the global command:
+Install the global command from source:
 
 ```bash
 cargo install --path .
 dustoff
 ```
+
+## Uninstall
+
+```bash
+rm ~/.local/bin/dustoff
+```
+
+If `DUSTOFF_INSTALL_DIR` was used during installation, remove the binary from
+that directory instead.
 
 ## Safety model
 
