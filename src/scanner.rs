@@ -81,7 +81,7 @@ fn directory_size(path: &Path) -> u64 {
     WalkDir::new(path)
         .follow_links(false)
         .into_iter()
-        .filter_map(Result::ok)
+        .filter_map(|entry| entry.ok())
         .filter_map(|entry| entry.metadata().ok())
         .filter(|metadata| metadata.is_file())
         .map(|metadata| metadata.len())
